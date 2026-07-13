@@ -4,35 +4,36 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vinksters Leagues</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg:           #f0f4f8;
+      --bg:           #e8edf5;
       --surface:      #ffffff;
-      --border:       #e2e8f0;
-      --text:         #1a202c;
-      --text-dim:     #4a5568;
+      --border:       #dde4f0;
+      --text:         #0f172a;
+      --text-dim:     #475569;
       --text-muted:   #94a3b8;
-      --header-bg:    #0f1623;
-      --radius:       14px;
-      --shadow:       0 2px 14px rgba(0,0,0,.07);
-      --shadow-hover: 0 10px 36px rgba(0,0,0,.14);
-      --font:         'Calibri', 'Segoe UI', system-ui, sans-serif;
+      --header-bg:    #0a1020;
+      --radius:       18px;
+      --font:         'Outfit', 'Segoe UI', system-ui, sans-serif;
 
-      /* Sport accent colors */
-      --nfl:    #162844;
+      --nfl:    #0f1e36;
       --nfl-hi: #e8a020;
-      --golf:   #1a5c2e;
-      --golf-hi:#4caf50;
-      --wc:     #002868;
-      --wc-hi:  #bf0a30;
-      --tbd:    #374151;
-      --tbd-hi: #6b7280;
+      --golf:   #0d3318;
+      --golf-hi:#3dba5e;
+      --wc:     #001a5c;
+      --wc-hi:  #d42b2b;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
+
     body {
       background: var(--bg);
+      background-image: radial-gradient(circle, rgba(99,117,160,.18) 1px, transparent 1px);
+      background-size: 26px 26px;
       color: var(--text);
       font-family: var(--font);
       font-size: 16px;
@@ -41,89 +42,87 @@
     }
     a { color: inherit; text-decoration: none; }
 
-    /* ── Header ── */
-    header {
-      background: var(--header-bg);
-      padding: 0 24px;
-    }
-    .header-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 68px;
-    }
-    .logo-wrap {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.1;
-    }
-    .logo-name {
-      font-size: 24px;
-      font-weight: 900;
-      letter-spacing: .04em;
-      color: #ffffff;
-    }
-    .logo-name span { color: #e8a020; }
-    .logo-tagline {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: #64748b;
-    }
-    .header-pill {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: #e8a020;
-      border: 1px solid #e8a020;
-      border-radius: 20px;
-      padding: 4px 12px;
-    }
 
-    /* ── Hero strip ── */
+    /* ── Hero ── */
     .hero {
-      background: linear-gradient(135deg, #0f1623 0%, #162132 60%, #1a1000 100%);
-      padding: 52px 24px 48px;
+      background:
+        radial-gradient(ellipse 65% 55% at 50% -5%, rgba(240,176,40,.2) 0%, transparent 65%),
+        linear-gradient(180deg, #03060e 0%, #070d1c 45%, #0a1428 100%);
+      padding: 72px 24px 60px;
       text-align: center;
-      border-bottom: 3px solid #e8a020;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Dot grid */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,.05) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+    }
+    /* Gradient bottom border */
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent 0%, #c8880a 20%, #f0b429 50%, #c8880a 80%, transparent 100%);
     }
     .hero h1 {
-      font-size: clamp(30px, 5vw, 54px);
+      font-size: clamp(42px, 7vw, 86px);
       font-weight: 900;
       color: #ffffff;
-      letter-spacing: .02em;
-      line-height: 1.1;
-      margin-bottom: 12px;
+      letter-spacing: -.02em;
+      line-height: 1;
+      margin-bottom: 18px;
+      position: relative;
     }
-    .hero h1 span { color: #e8a020; }
-    .hero p {
-      font-size: 16px;
-      color: #94a3b8;
-      max-width: 480px;
-      margin: 0 auto;
+    .hero h1 .gold-line {
+      color: #f0b429;
+      font-style: italic;
+    }
+    .hero-sub {
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: .12em;
+      color: rgba(148,163,184,.6);
+      position: relative;
     }
 
-    /* ── League grid ── */
+    /* ── Responsive hero ── */
+    @media (max-width: 480px) {
+      .hero { padding: 72px 20px 64px; }
+      .hero h1 { letter-spacing: -.01em; }
+    }
+
+    /* ── Leagues section ── */
     .leagues-section {
-      max-width: 1100px;
+      max-width: 1140px;
       margin: 0 auto;
-      padding: 52px 24px 64px;
+      padding: 56px 24px 72px;
     }
     .section-label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .16em;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .22em;
       text-transform: uppercase;
       color: var(--text-muted);
-      margin-bottom: 24px;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
     }
     .leagues-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
       gap: 24px;
     }
 
@@ -131,95 +130,131 @@
     .league-card {
       background: var(--surface);
       border-radius: var(--radius);
-      box-shadow: var(--shadow);
+      box-shadow:
+        0 1px 2px rgba(0,0,0,.06),
+        0 4px 16px rgba(0,0,0,.08),
+        0 0 0 1px rgba(255,255,255,.8) inset;
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      transition: transform .2s ease, box-shadow .2s ease;
+      transition: transform .28s cubic-bezier(.34,1.56,.64,1), box-shadow .28s ease;
+      animation: fadeUp .5s ease both;
     }
-    .league-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-hover);
-    }
-    .league-card.coming-soon { opacity: .82; }
+    .league-card:nth-child(1) { animation-delay: .05s; }
+    .league-card:nth-child(2) { animation-delay: .10s; }
+    .league-card:nth-child(3) { animation-delay: .15s; }
+    .league-card:nth-child(4) { animation-delay: .20s; }
 
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .league-card:hover {
+      transform: translateY(-7px) scale(1.01);
+      box-shadow:
+        0 2px 4px rgba(0,0,0,.06),
+        0 16px 48px rgba(0,0,0,.16),
+        0 0 0 1px rgba(255,255,255,.8) inset;
+    }
+
+    /* ── Card banner ── */
     .card-banner {
-      height: 90px;
+      height: 108px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 22px;
+      padding: 0 24px;
       position: relative;
+      overflow: hidden;
     }
-    .card-banner .sport-icon {
-      font-size: 42px;
-      line-height: 1;
-      filter: drop-shadow(0 2px 6px rgba(0,0,0,.3));
+    /* Diagonal shimmer overlay */
+    .card-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,.07) 0%, transparent 55%, rgba(0,0,0,.12) 100%);
+      pointer-events: none;
     }
-    .card-badge {
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      padding: 4px 10px;
-      border-radius: 20px;
-    }
-    .badge-active {
-      background: rgba(46,204,113,.15);
-      color: #27ae60;
-      border: 1px solid rgba(46,204,113,.4);
-    }
-    .badge-soon {
-      background: rgba(255,255,255,.1);
-      color: rgba(255,255,255,.55);
-      border: 1px solid rgba(255,255,255,.18);
-    }
-    .badge-reg {
-      background: #27ae60;
-      color: #ffffff;
-      border: none;
-      font-weight: 800;
-      font-size: 11px;
-      box-shadow: 0 2px 6px rgba(39,174,96,.4);
-    }
-    .badge-live {
-      background: #e74c3c;
-      color: #ffffff;
-      border: none;
-      font-weight: 800;
-      font-size: 11px;
-      box-shadow: 0 2px 6px rgba(231,76,60,.4);
-    }
-
-    .card-stats-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px 16px;
-      margin-bottom: 20px;
-    }
-    .card-stats-grid .stat-num { font-size: 17px; }
-    .card-stats-grid .stat-label { font-size: 9px; }
-
-    /* Sport-specific banner colors */
-    .banner-nfl  { background: linear-gradient(135deg, var(--nfl) 0%, #1e3a5f 100%); }
-    .banner-golf { background: linear-gradient(135deg, var(--golf) 0%, #2d7a42 100%); }
-    .banner-wc   { background: linear-gradient(135deg, var(--wc) 0%, #003d99 100%); }
-    .banner-tbd  { background: linear-gradient(135deg, var(--tbd) 0%, #4b5563 100%); }
-
-    /* Highlight stripe at bottom of banner */
+    /* Bottom accent stripe */
     .card-banner::after {
       content: '';
       position: absolute;
       bottom: 0; left: 0; right: 0;
       height: 3px;
     }
-    .banner-nfl::after  { background: var(--nfl-hi); }
-    .banner-golf::after { background: var(--golf-hi); }
-    .banner-wc::after   { background: linear-gradient(90deg, var(--wc-hi) 50%, var(--wc) 50%); }
-    .banner-tbd::after  { background: var(--tbd-hi); }
 
+    .sport-icon {
+      font-size: 48px;
+      line-height: 1;
+      filter: drop-shadow(0 3px 8px rgba(0,0,0,.35));
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Badge base */
+    .card-badge {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Registration Open — green, glowing pulse */
+    .badge-reg {
+      background: #22c55e;
+      color: #fff;
+      box-shadow: 0 0 0 0 rgba(34,197,94,.5);
+      animation: glow-green 2.4s ease-in-out infinite;
+    }
+    @keyframes glow-green {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(34,197,94,.5); }
+      50%       { box-shadow: 0 0 0 6px rgba(34,197,94,0); }
+    }
+
+    /* Live — red, blinking dot */
+    .badge-live {
+      background: #ef4444;
+      color: #fff;
+      box-shadow: 0 0 0 0 rgba(239,68,68,.5);
+      animation: glow-red 2s ease-in-out infinite;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    @keyframes glow-red {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(239,68,68,.5); }
+      50%       { box-shadow: 0 0 0 6px rgba(239,68,68,0); }
+    }
+    .live-dot {
+      width: 6px; height: 6px;
+      background: #fff;
+      border-radius: 50%;
+      animation: blink 1.2s ease-in-out infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: .25; }
+    }
+
+    /* Banner sport colors */
+    .banner-nfl  { background: linear-gradient(135deg, var(--nfl) 0%, #1a3060 100%); }
+    .banner-golf { background: linear-gradient(135deg, var(--golf) 0%, #1a5c2e 100%); }
+    .banner-wc   { background: linear-gradient(135deg, var(--wc) 0%, #0a3090 100%); }
+    .banner-tbd  { background: linear-gradient(135deg, #2a3040 0%, #3a4050 100%); }
+
+    .banner-nfl::after  { background: linear-gradient(90deg, var(--nfl-hi), #f5c842); }
+    .banner-golf::after { background: linear-gradient(90deg, var(--golf-hi), #6dda80); }
+    .banner-wc::after   { background: linear-gradient(90deg, var(--wc-hi), #ff6060); }
+    .banner-tbd::after  { background: #4b5563; }
+
+    /* ── Card body ── */
     .card-body {
-      padding: 20px 22px 22px;
+      padding: 22px 24px 24px;
       display: flex;
       flex-direction: column;
       flex: 1;
@@ -227,96 +262,157 @@
     .card-sport {
       font-size: 10px;
       font-weight: 700;
-      letter-spacing: .14em;
+      letter-spacing: .16em;
       text-transform: uppercase;
       color: var(--text-muted);
-      margin-bottom: 4px;
+      margin-bottom: 5px;
     }
     .card-name {
-      font-size: 21px;
+      font-size: 20px;
       font-weight: 900;
       color: var(--text);
       letter-spacing: .01em;
       margin-bottom: 4px;
-      line-height: 1.15;
+      line-height: 1.2;
     }
     .card-season {
-      font-size: 13px;
-      color: var(--text-dim);
-      margin-bottom: 16px;
-    }
-
-    .card-stats {
-      display: flex;
-      gap: 20px;
+      font-size: 12px;
+      color: var(--text-muted);
       margin-bottom: 20px;
     }
-    .stat-item { display: flex; flex-direction: column; }
-    .stat-num  {
-      font-size: 20px;
+
+    /* Stats — 3-col flex */
+    .card-stats {
+      display: flex;
+      gap: 0;
+      margin-bottom: 22px;
+      background: #f8faff;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .stat-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px 8px;
+      border-right: 1px solid var(--border);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-size: 17px;
       font-weight: 900;
       color: var(--text);
       line-height: 1;
     }
     .stat-label {
-      font-size: 10px;
-      font-weight: 600;
+      font-size: 9px;
+      font-weight: 700;
       letter-spacing: .1em;
       text-transform: uppercase;
       color: var(--text-muted);
-      margin-top: 2px;
+      margin-top: 3px;
     }
+
+    /* Stats — 4-col 2×2 grid */
+    .card-stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      margin-bottom: 22px;
+      background: var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .card-stats-grid .stat-item {
+      background: #f8faff;
+      border-right: none;
+      border-radius: 0;
+    }
+
+    /* Sport-colored stat numbers per card type */
+    .card-nfl .stat-num  { color: #1a3060; }
+    .card-golf .stat-num { color: #1a5c2e; }
+    .card-wc .stat-num   { color: #0a3090; }
 
     .card-divider {
       border: none;
       border-top: 1px solid var(--border);
       margin-bottom: 18px;
+      margin-top: auto;
     }
 
+    /* ── Buttons ── */
     .btn-enter {
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
       width: 100%;
-      padding: 11px 16px;
-      border-radius: 8px;
+      padding: 13px 16px;
+      border-radius: 10px;
       font-family: var(--font);
       font-size: 13px;
-      font-weight: 700;
-      letter-spacing: .06em;
+      font-weight: 800;
+      letter-spacing: .07em;
       text-transform: uppercase;
       text-align: center;
       cursor: pointer;
-      transition: background .15s, color .15s, opacity .15s;
       border: none;
       text-decoration: none;
+      transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+      position: relative;
+      overflow: hidden;
     }
+    .btn-enter::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(255,255,255,.12), transparent);
+      pointer-events: none;
+    }
+    .btn-enter:hover {
+      transform: translateY(-2px);
+    }
+    .btn-enter .btn-arrow {
+      transition: transform .2s ease;
+    }
+    .btn-enter:hover .btn-arrow { transform: translateX(3px); }
+
     .btn-nfl {
-      background: var(--nfl);
-      color: #e8a020;
+      background: linear-gradient(135deg, #162844 0%, #1e3a5f 100%);
+      color: #e8c060;
+      box-shadow: 0 4px 14px rgba(22,40,68,.35);
     }
-    .btn-nfl:hover { background: #1e3a5f; }
+    .btn-nfl:hover  { box-shadow: 0 6px 20px rgba(22,40,68,.5); filter: brightness(1.1); }
 
     .btn-golf {
-      background: var(--golf);
+      background: linear-gradient(135deg, #1a5c2e 0%, #2d7a42 100%);
       color: #ffffff;
+      box-shadow: 0 4px 14px rgba(26,92,46,.35);
     }
-    .btn-golf:hover { background: #1e6b34; }
+    .btn-golf:hover { box-shadow: 0 6px 20px rgba(26,92,46,.5); filter: brightness(1.1); }
 
     .btn-wc {
-      background: var(--wc);
+      background: linear-gradient(135deg, #002868 0%, #0a3a90 100%);
       color: #ffffff;
+      box-shadow: 0 4px 14px rgba(0,40,104,.35);
     }
-    .btn-wc:hover { background: #003d99; }
+    .btn-wc:hover   { box-shadow: 0 6px 20px rgba(0,40,104,.5); filter: brightness(1.1); }
 
     .btn-disabled {
       background: #e2e8f0;
       color: #94a3b8;
       cursor: not-allowed;
+      box-shadow: none;
     }
 
-    /* ── "More coming" placeholder card ── */
+    /* ── Future card ── */
     .card-future {
-      background: transparent;
-      border: 2px dashed var(--border);
+      background: rgba(255,255,255,.5);
+      border: 2px dashed #c8d4e8;
       border-radius: var(--radius);
       display: flex;
       flex-direction: column;
@@ -324,63 +420,41 @@
       justify-content: center;
       padding: 40px 24px;
       text-align: center;
-      min-height: 260px;
+      min-height: 280px;
       gap: 10px;
+      transition: border-color .2s, background .2s;
     }
-    .card-future .future-icon {
-      font-size: 32px;
-      color: var(--text-muted);
-    }
-    .card-future h3 {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--text-dim);
-    }
-    .card-future p {
-      font-size: 13px;
-      color: var(--text-muted);
-      max-width: 200px;
-    }
+    .card-future:hover { border-color: #a0b0d0; background: rgba(255,255,255,.75); }
+    .future-icon { font-size: 34px; color: #b0c0d8; }
+    .card-future h3 { font-size: 16px; font-weight: 800; color: var(--text-dim); }
+    .card-future p  { font-size: 13px; color: var(--text-muted); max-width: 200px; }
 
     /* ── Footer ── */
     footer {
       background: var(--header-bg);
-      border-top: 1px solid #1e2a3a;
-      padding: 24px;
+      border-top: 1px solid rgba(232,160,32,.2);
+      padding: 28px 24px;
       text-align: center;
     }
-    footer p {
-      font-size: 12px;
-      color: #4a5568;
-      letter-spacing: .04em;
-    }
+    footer p { font-size: 12px; color: #2a3a54; letter-spacing: .05em; }
     footer span { color: #e8a020; }
 
     /* ── Responsive ── */
-    @media (max-width: 480px) {
-      .logo-name { font-size: 18px; }
+    @media (max-width: 520px) {
+      .logo-name { font-size: 20px; }
       .header-pill { display: none; }
-      .hero { padding: 36px 16px 32px; }
-      .leagues-section { padding: 36px 16px 48px; }
+      .hero { padding: 48px 16px 44px; }
+      .hero-stats { gap: 24px; }
+      .leagues-section { padding: 36px 16px 52px; }
       .leagues-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-<header>
-  <div class="header-inner">
-    <div class="logo-wrap">
-      <div class="logo-name">Vinksters <span>Leagues</span></div>
-      <div class="logo-tagline">Competitive Fantasy Sports</div>
-    </div>
-    <div class="header-pill">Est. 2026</div>
-  </div>
-</header>
-
 <section class="hero">
-  <h1>Welcome to <span>Vinksters</span> Leagues</h1>
-  <p>Your hub for competitive fantasy sports. Select a league below to get started.</p>
+  <h1>Vinksters <span class="gold-line">Leagues</span></h1>
+  <p class="hero-sub">Your hub for all competitive fantasy sports</p>
 </section>
 
 <section class="leagues-section">
@@ -389,7 +463,7 @@
   <div class="leagues-grid">
 
     <!-- ── NFL League I ── -->
-    <div class="league-card">
+    <div class="league-card card-nfl">
       <div class="card-banner banner-nfl">
         <span class="sport-icon">🏈</span>
         <span class="card-badge badge-reg">Registration Open</span>
@@ -417,12 +491,14 @@
           </div>
         </div>
         <hr class="card-divider" />
-        <a href="https://vinkster15.github.io/2026-NFL-League/" class="btn-enter btn-nfl">View League →</a>
+        <a href="https://vinkster15.github.io/2026-NFL-League/" class="btn-enter btn-nfl">
+          View League <span class="btn-arrow">→</span>
+        </a>
       </div>
     </div>
 
     <!-- ── NFL League II ── -->
-    <div class="league-card">
+    <div class="league-card card-nfl">
       <div class="card-banner banner-nfl">
         <span class="sport-icon">🏈</span>
         <span class="card-badge badge-reg">Registration Open</span>
@@ -452,15 +528,17 @@
         </div>
         <hr class="card-divider" />
         <!-- UPDATE: add NFL League II URL when site is ready -->
-        <a href="#" class="btn-enter btn-nfl">View League →</a>
+        <a href="#" class="btn-enter btn-nfl">
+          View League <span class="btn-arrow">→</span>
+        </a>
       </div>
     </div>
 
     <!-- ── Golf League ── -->
-    <div class="league-card">
+    <div class="league-card card-golf">
       <div class="card-banner banner-golf">
         <span class="sport-icon">⛳</span>
-        <span class="card-badge badge-live">● Live</span>
+        <span class="card-badge badge-live"><span class="live-dot"></span> Live</span>
       </div>
       <div class="card-body">
         <p class="card-sport">Professional Golf</p>
@@ -481,15 +559,17 @@
           </div>
         </div>
         <hr class="card-divider" />
-        <a href="https://vinkster15.github.io/Golf-League-2026/" class="btn-enter btn-golf">View League →</a>
+        <a href="https://vinkster15.github.io/Golf-League-2026/" class="btn-enter btn-golf">
+          View League <span class="btn-arrow">→</span>
+        </a>
       </div>
     </div>
 
     <!-- ── World Cup Pool ── -->
-    <div class="league-card">
+    <div class="league-card card-wc">
       <div class="card-banner banner-wc">
         <span class="sport-icon">🌍</span>
-        <span class="card-badge badge-live">● Live</span>
+        <span class="card-badge badge-live"><span class="live-dot"></span> Live</span>
       </div>
       <div class="card-body">
         <p class="card-sport">International Soccer</p>
@@ -510,7 +590,9 @@
           </div>
         </div>
         <hr class="card-divider" />
-        <a href="https://vinkster15.github.io/World-Cup-Pool/" class="btn-enter btn-wc">View Pool →</a>
+        <a href="https://vinkster15.github.io/World-Cup-Pool/" class="btn-enter btn-wc">
+          View Pool <span class="btn-arrow">→</span>
+        </a>
       </div>
     </div>
 
@@ -529,9 +611,6 @@
 </footer>
 
 <script>
-  // ── Live open spots for NFL League I ──
-  // Fetches claim count from the NFL League Apps Script each page load.
-  // NFL League II is static at 32 until its site/sheet is set up.
   const NFL1_GAS = 'https://script.google.com/macros/s/AKfycbwyH3OWsW_pqlVC3aMKUJusr3BeFYT4Cd3fP_gQL4lA_OzF9FhSadMtNM0P55qZ0OUikw/exec';
 
   async function loadNFLOpenSpots() {
@@ -545,10 +624,9 @@
         const open    = Math.max(0, 32 - claimed);
         el.textContent = open;
       } else {
-        el.textContent = 32; // fallback if unexpected response shape
+        el.textContent = 32;
       }
     } catch (e) {
-      // CORS or network issue — show static fallback
       el.textContent = 32;
       console.warn('Could not fetch NFL League I claims:', e);
     }
