@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vinksters Leagues</title>
+  <style>
+    :root {
+      --bg:           #f0f4f8;
+      --surface:      #ffffff;
+      --border:       #e2e8f0;
+      --text:         #1a202c;
+      --text-dim:     #4a5568;
+      --text-muted:   #94a3b8;
+      --header-bg:    #0f1623;
+      --radius:       14px;
+      --shadow:       0 2px 14px rgba(0,0,0,.07);
+      --shadow-hover: 0 10px 36px rgba(0,0,0,.14);
+      --font:         'Calibri', 'Segoe UI', system-ui, sans-serif;
+
+      /* Sport accent colors */
+      --nfl:    #162844;
+      --nfl-hi: #e8a020;
+      --golf:   #1a5c2e;
+      --golf-hi:#4caf50;
+      --wc:     #002868;
+      --wc-hi:  #bf0a30;
+      --tbd:    #374151;
+      --tbd-hi: #6b7280;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Header ── */
+    header {
+      background: var(--header-bg);
+      padding: 0 24px;
+    }
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+    }
+    .logo-wrap {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+    .logo-name {
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: .04em;
+      color: #ffffff;
+    }
+    .logo-name span { color: #e8a020; }
+    .logo-tagline {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #64748b;
+    }
+    .header-pill {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #e8a020;
+      border: 1px solid #e8a020;
+      border-radius: 20px;
+      padding: 4px 12px;
+    }
+
+    /* ── Hero strip ── */
+    .hero {
+      background: linear-gradient(135deg, #0f1623 0%, #162132 60%, #1a1000 100%);
+      padding: 52px 24px 48px;
+      text-align: center;
+      border-bottom: 3px solid #e8a020;
+    }
+    .hero h1 {
+      font-size: clamp(30px, 5vw, 54px);
+      font-weight: 900;
+      color: #ffffff;
+      letter-spacing: .02em;
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+    .hero h1 span { color: #e8a020; }
+    .hero p {
+      font-size: 16px;
+      color: #94a3b8;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    /* ── League grid ── */
+    .leagues-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 52px 24px 64px;
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+    .leagues-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    /* ── League card ── */
+    .league-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .league-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+    .league-card.coming-soon { opacity: .82; }
+
+    .card-banner {
+      height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 22px;
+      position: relative;
+    }
+    .card-banner .sport-icon {
+      font-size: 42px;
+      line-height: 1;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,.3));
+    }
+    .card-badge {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+    .badge-active {
+      background: rgba(46,204,113,.15);
+      color: #27ae60;
+      border: 1px solid rgba(46,204,113,.4);
+    }
+    .badge-soon {
+      background: rgba(255,255,255,.1);
+      color: rgba(255,255,255,.55);
+      border: 1px solid rgba(255,255,255,.18);
+    }
+
+    /* Sport-specific banner colors */
+    .banner-nfl  { background: linear-gradient(135deg, var(--nfl) 0%, #1e3a5f 100%); }
+    .banner-golf { background: linear-gradient(135deg, var(--golf) 0%, #2d7a42 100%); }
+    .banner-wc   { background: linear-gradient(135deg, var(--wc) 0%, #003d99 100%); }
+    .banner-tbd  { background: linear-gradient(135deg, var(--tbd) 0%, #4b5563 100%); }
+
+    /* Highlight stripe at bottom of banner */
+    .card-banner::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .banner-nfl::after  { background: var(--nfl-hi); }
+    .banner-golf::after { background: var(--golf-hi); }
+    .banner-wc::after   { background: linear-gradient(90deg, var(--wc-hi) 50%, var(--wc) 50%); }
+    .banner-tbd::after  { background: var(--tbd-hi); }
+
+    .card-body {
+      padding: 20px 22px 22px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .card-sport {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    .card-name {
+      font-size: 21px;
+      font-weight: 900;
+      color: var(--text);
+      letter-spacing: .01em;
+      margin-bottom: 4px;
+      line-height: 1.15;
+    }
+    .card-season {
+      font-size: 13px;
+      color: var(--text-dim);
+      margin-bottom: 16px;
+    }
+
+    .card-stats {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .stat-item { display: flex; flex-direction: column; }
+    .stat-num  {
+      font-size: 20px;
+      font-weight: 900;
+      color: var(--text);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .card-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin-bottom: 18px;
+    }
+
+    .btn-enter {
+      display: block;
+      width: 100%;
+      padding: 11px 16px;
+      border-radius: 8px;
+      font-family: var(--font);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      text-align: center;
+      cursor: pointer;
+      transition: background .15s, color .15s, opacity .15s;
+      border: none;
+      text-decoration: none;
+    }
+    .btn-nfl {
+      background: var(--nfl);
+      color: #e8a020;
+    }
+    .btn-nfl:hover { background: #1e3a5f; }
+
+    .btn-golf {
+      background: var(--golf);
+      color: #ffffff;
+    }
+    .btn-golf:hover { background: #1e6b34; }
+
+    .btn-wc {
+      background: var(--wc);
+      color: #ffffff;
+    }
+    .btn-wc:hover { background: #003d99; }
+
+    .btn-disabled {
+      background: #e2e8f0;
+      color: #94a3b8;
+      cursor: not-allowed;
+    }
+
+    /* ── "More coming" placeholder card ── */
+    .card-future {
+      background: transparent;
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px;
+      text-align: center;
+      min-height: 260px;
+      gap: 10px;
+    }
+    .card-future .future-icon {
+      font-size: 32px;
+      color: var(--text-muted);
+    }
+    .card-future h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-dim);
+    }
+    .card-future p {
+      font-size: 13px;
+      color: var(--text-muted);
+      max-width: 200px;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--header-bg);
+      border-top: 1px solid #1e2a3a;
+      padding: 24px;
+      text-align: center;
+    }
+    footer p {
+      font-size: 12px;
+      color: #4a5568;
+      letter-spacing: .04em;
+    }
+    footer span { color: #e8a020; }
+
+    /* ── Responsive ── */
+    @media (max-width: 480px) {
+      .logo-name { font-size: 18px; }
+      .header-pill { display: none; }
+      .hero { padding: 36px 16px 32px; }
+      .leagues-section { padding: 36px 16px 48px; }
+      .leagues-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo-wrap">
+      <div class="logo-name">Vinksters <span>Leagues</span></div>
+      <div class="logo-tagline">Competitive Fantasy Sports</div>
+    </div>
+    <div class="header-pill">Est. 2026</div>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>Welcome to <span>Vinksters</span> Leagues</h1>
+  <p>Your hub for competitive fantasy sports. Select a league below to get started.</p>
+</section>
+
+<section class="leagues-section">
+  <p class="section-label">All Leagues</p>
+
+  <div class="leagues-grid">
+
+    <!-- ── NFL League ── -->
+    <div class="league-card">
+      <div class="card-banner banner-nfl">
+        <span class="sport-icon">🏈</span>
+        <span class="card-badge badge-active">● Active</span>
+      </div>
+      <div class="card-body">
+        <p class="card-sport">National Football League</p>
+        <h2 class="card-name">NFL League</h2>
+        <p class="card-season">2026 Season · DraftKings Main Slate</p>
+        <div class="card-stats">
+          <div class="stat-item">
+            <span class="stat-num">32</span>
+            <span class="stat-label">Teams</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">18</span>
+            <span class="stat-label">Weeks</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">$125</span>
+            <span class="stat-label">Entry Fee</span>
+          </div>
+        </div>
+        <hr class="card-divider" />
+        <!-- UPDATE THIS URL to your NFL League GitHub Pages URL -->
+        <a href="YOUR_NFL_LEAGUE_URL" class="btn-enter btn-nfl">Enter League →</a>
+      </div>
+    </div>
+
+    <!-- ── NFL League II ── -->
+    <div class="league-card coming-soon">
+      <div class="card-banner banner-nfl">
+        <span class="sport-icon">🏈</span>
+        <span class="card-badge badge-soon">Coming Soon</span>
+      </div>
+      <div class="card-body">
+        <p class="card-sport">National Football League</p>
+        <h2 class="card-name">NFL League II</h2>
+        <p class="card-season">2026 Season · DraftKings Main Slate</p>
+        <div class="card-stats">
+          <div class="stat-item">
+            <span class="stat-num">32</span>
+            <span class="stat-label">Teams</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">18</span>
+            <span class="stat-label">Weeks</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">$125</span>
+            <span class="stat-label">Entry Fee</span>
+          </div>
+        </div>
+        <hr class="card-divider" />
+        <button class="btn-enter btn-disabled" disabled>Coming Soon</button>
+      </div>
+    </div>
+
+    <!-- ── Golf League ── -->
+    <div class="league-card coming-soon">
+      <div class="card-banner banner-golf">
+        <span class="sport-icon">⛳</span>
+        <span class="card-badge badge-soon">Coming Soon</span>
+      </div>
+      <div class="card-body">
+        <p class="card-sport">Professional Golf</p>
+        <h2 class="card-name">Golf League</h2>
+        <p class="card-season">2026 Season · PGA Tour</p>
+        <div class="card-stats">
+          <div class="stat-item">
+            <span class="stat-num">—</span>
+            <span class="stat-label">Players</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">—</span>
+            <span class="stat-label">Tourneys</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">TBD</span>
+            <span class="stat-label">Entry Fee</span>
+          </div>
+        </div>
+        <hr class="card-divider" />
+        <button class="btn-enter btn-disabled" disabled>Coming Soon</button>
+      </div>
+    </div>
+
+    <!-- ── World Cup League ── -->
+    <div class="league-card coming-soon">
+      <div class="card-banner banner-wc">
+        <span class="sport-icon">🌍</span>
+        <span class="card-badge badge-soon">Coming Soon</span>
+      </div>
+      <div class="card-body">
+        <p class="card-sport">International Soccer</p>
+        <h2 class="card-name">World Cup League</h2>
+        <p class="card-season">2026 · USA / Canada / Mexico</p>
+        <div class="card-stats">
+          <div class="stat-item">
+            <span class="stat-num">32</span>
+            <span class="stat-label">Nations</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">64</span>
+            <span class="stat-label">Matches</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">TBD</span>
+            <span class="stat-label">Entry Fee</span>
+          </div>
+        </div>
+        <hr class="card-divider" />
+        <button class="btn-enter btn-disabled" disabled>Coming Soon</button>
+      </div>
+    </div>
+
+    <!-- ── Future placeholder ── -->
+    <div class="card-future">
+      <div class="future-icon">＋</div>
+      <h3>More Leagues Coming</h3>
+      <p>New competitions will be added here as they launch.</p>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 <span>Vinksters Leagues</span> · All rights reserved</p>
+</footer>
+
+</body>
+</html>
