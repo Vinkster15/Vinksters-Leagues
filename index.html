@@ -534,6 +534,41 @@
       </div>
     </div>
 
+    <!-- ── NFL Guillotine League ── -->
+    <div class="league-card card-nfl">
+      <div class="card-banner banner-nfl">
+        <span class="sport-icon">⚔️</span>
+        <span class="card-badge badge-reg">Registration Open</span>
+      </div>
+      <div class="card-body">
+        <p class="card-sport">National Football League</p>
+        <h2 class="card-name">2026 NFL Guillotine League</h2>
+        <p class="card-season">2026 Season · Yahoo Fantasy · Weekly Elimination</p>
+        <div class="card-stats-grid">
+          <div class="stat-item">
+            <span class="stat-num">18</span>
+            <span class="stat-label">Teams</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num" id="guill-open">—</span>
+            <span class="stat-label">Open Spots</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">18</span>
+            <span class="stat-label">Weeks</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">$100</span>
+            <span class="stat-label">Entry Fee</span>
+          </div>
+        </div>
+        <hr class="card-divider" />
+        <a href="https://vinkster15.github.io/2026-NFL-Guillotine-League/" class="btn-enter btn-nfl">
+          Claim a Spot <span class="btn-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
     <!-- ── Golf League ── -->
     <div class="league-card card-golf">
       <div class="card-banner banner-golf">
@@ -611,7 +646,8 @@
 </footer>
 
 <script>
-  const NFL1_GAS = 'https://script.google.com/macros/s/AKfycbwyH3OWsW_pqlVC3aMKUJusr3BeFYT4Cd3fP_gQL4lA_OzF9FhSadMtNM0P55qZ0OUikw/exec';
+  const NFL1_GAS  = 'https://script.google.com/macros/s/AKfycbwyH3OWsW_pqlVC3aMKUJusr3BeFYT4Cd3fP_gQL4lA_OzF9FhSadMtNM0P55qZ0OUikw/exec';
+  const GUILL_GAS = 'https://script.google.com/macros/s/AKfycbyKtYR8enNHTXAcVd3xZA6768rzRZ2yq7k_HzOVyMf4UX24YjYnviUEhxN8lLEf4Y0/exec';
 
   async function loadNFLOpenSpots() {
     const el = document.getElementById('nfl1-open');
@@ -632,7 +668,30 @@
     }
   }
 
+  async function loadGuillotineOpenSpots() {
+    const el = document.getElementById('guill-open');
+    if (!el || GUILL_GAS === 'YOUR_GUILLOTINE_GAS_URL_HERE') {
+      if (el) el.textContent = 18;
+      return;
+    }
+    try {
+      const res  = await fetch(`${GUILL_GAS}?action=claims`);
+      const data = await res.json();
+      if (data.success && data.claims) {
+        const claimed = Object.keys(data.claims).length;
+        const open    = Math.max(0, 18 - claimed);
+        el.textContent = open;
+      } else {
+        el.textContent = 18;
+      }
+    } catch (e) {
+      el.textContent = 18;
+      console.warn('Could not fetch Guillotine League claims:', e);
+    }
+  }
+
   loadNFLOpenSpots();
+  loadGuillotineOpenSpots();
 </script>
 </body>
 </html>
