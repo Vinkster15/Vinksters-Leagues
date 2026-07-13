@@ -174,6 +174,31 @@
       color: rgba(255,255,255,.55);
       border: 1px solid rgba(255,255,255,.18);
     }
+    .badge-reg {
+      background: #27ae60;
+      color: #ffffff;
+      border: none;
+      font-weight: 800;
+      font-size: 11px;
+      box-shadow: 0 2px 6px rgba(39,174,96,.4);
+    }
+    .badge-live {
+      background: #e74c3c;
+      color: #ffffff;
+      border: none;
+      font-weight: 800;
+      font-size: 11px;
+      box-shadow: 0 2px 6px rgba(231,76,60,.4);
+    }
+
+    .card-stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 16px;
+      margin-bottom: 20px;
+    }
+    .card-stats-grid .stat-num { font-size: 17px; }
+    .card-stats-grid .stat-label { font-size: 9px; }
 
     /* Sport-specific banner colors */
     .banner-nfl  { background: linear-gradient(135deg, var(--nfl) 0%, #1e3a5f 100%); }
@@ -363,20 +388,24 @@
 
   <div class="leagues-grid">
 
-    <!-- ── NFL League ── -->
+    <!-- ── NFL League I ── -->
     <div class="league-card">
       <div class="card-banner banner-nfl">
         <span class="sport-icon">🏈</span>
-        <span class="card-badge badge-active">● Active</span>
+        <span class="card-badge badge-reg">Registration Open</span>
       </div>
       <div class="card-body">
         <p class="card-sport">National Football League</p>
-        <h2 class="card-name">NFL League</h2>
+        <h2 class="card-name">2026 DK NFL League - I</h2>
         <p class="card-season">2026 Season · DraftKings Main Slate</p>
-        <div class="card-stats">
+        <div class="card-stats-grid">
           <div class="stat-item">
             <span class="stat-num">32</span>
             <span class="stat-label">Teams</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num" id="nfl1-open">—</span>
+            <span class="stat-label">Open Spots</span>
           </div>
           <div class="stat-item">
             <span class="stat-num">18</span>
@@ -388,24 +417,29 @@
           </div>
         </div>
         <hr class="card-divider" />
-        <a href="https://vinkster15.github.io/2026-NFL-League/" class="btn-enter btn-nfl">Enter League →</a>
+        <a href="https://vinkster15.github.io/2026-NFL-League/" class="btn-enter btn-nfl">View League →</a>
       </div>
     </div>
 
     <!-- ── NFL League II ── -->
-    <div class="league-card coming-soon">
+    <div class="league-card">
       <div class="card-banner banner-nfl">
         <span class="sport-icon">🏈</span>
-        <span class="card-badge badge-soon">Coming Soon</span>
+        <span class="card-badge badge-reg">Registration Open</span>
       </div>
       <div class="card-body">
         <p class="card-sport">National Football League</p>
-        <h2 class="card-name">NFL League II</h2>
+        <h2 class="card-name">2026 DK NFL League - II</h2>
         <p class="card-season">2026 Season · DraftKings Main Slate</p>
-        <div class="card-stats">
+        <div class="card-stats-grid">
           <div class="stat-item">
             <span class="stat-num">32</span>
             <span class="stat-label">Teams</span>
+          </div>
+          <!-- UPDATE: decrease open spots as teams are claimed -->
+          <div class="stat-item">
+            <span class="stat-num">32</span>
+            <span class="stat-label">Open Spots</span>
           </div>
           <div class="stat-item">
             <span class="stat-num">18</span>
@@ -417,7 +451,8 @@
           </div>
         </div>
         <hr class="card-divider" />
-        <button class="btn-enter btn-disabled" disabled>Coming Soon</button>
+        <!-- UPDATE: add NFL League II URL when site is ready -->
+        <a href="#" class="btn-enter btn-nfl">View League →</a>
       </div>
     </div>
 
@@ -425,12 +460,12 @@
     <div class="league-card">
       <div class="card-banner banner-golf">
         <span class="sport-icon">⛳</span>
-        <span class="card-badge badge-active">● Active</span>
+        <span class="card-badge badge-live">● Live</span>
       </div>
       <div class="card-body">
         <p class="card-sport">Professional Golf</p>
-        <h2 class="card-name">Golf League</h2>
-        <p class="card-season">2026 Season · PGA Tour · FedEx Cup</p>
+        <h2 class="card-name">Golf League 2026</h2>
+        <p class="card-season">PGA Tour · FedEx Cup Style</p>
         <div class="card-stats">
           <div class="stat-item">
             <span class="stat-num">53</span>
@@ -441,41 +476,41 @@
             <span class="stat-label">Events</span>
           </div>
           <div class="stat-item">
-            <span class="stat-num">DK</span>
-            <span class="stat-label">Platform</span>
+            <span class="stat-num">$10,600</span>
+            <span class="stat-label">Prize Pool</span>
           </div>
         </div>
         <hr class="card-divider" />
-        <a href="https://vinkster15.github.io/Golf-League-2026/" class="btn-enter btn-golf">Enter League →</a>
+        <a href="https://vinkster15.github.io/Golf-League-2026/" class="btn-enter btn-golf">View League →</a>
       </div>
     </div>
 
-    <!-- ── World Cup League ── -->
+    <!-- ── World Cup Pool ── -->
     <div class="league-card">
       <div class="card-banner banner-wc">
         <span class="sport-icon">🌍</span>
-        <span class="card-badge badge-active">● Active</span>
+        <span class="card-badge badge-live">● Live</span>
       </div>
       <div class="card-body">
         <p class="card-sport">International Soccer</p>
         <h2 class="card-name">World Cup Pool</h2>
-        <p class="card-season">2026 · USA / Canada / Mexico</p>
+        <p class="card-season">June 11 – July 19, 2026 · USA / Canada / Mexico</p>
         <div class="card-stats">
           <div class="stat-item">
-            <span class="stat-num">32</span>
-            <span class="stat-label">Nations</span>
+            <span class="stat-num">40</span>
+            <span class="stat-label">Entrants</span>
           </div>
           <div class="stat-item">
-            <span class="stat-num">64</span>
-            <span class="stat-label">Matches</span>
+            <span class="stat-num">$1,000</span>
+            <span class="stat-label">Prize Pool</span>
           </div>
           <div class="stat-item">
-            <span class="stat-num">Free</span>
-            <span class="stat-label">Entry</span>
+            <span class="stat-num">$25</span>
+            <span class="stat-label">Entry Fee</span>
           </div>
         </div>
         <hr class="card-divider" />
-        <a href="https://vinkster15.github.io/World-Cup-Pool/" class="btn-enter btn-wc">Enter Pool →</a>
+        <a href="https://vinkster15.github.io/World-Cup-Pool/" class="btn-enter btn-wc">View Pool →</a>
       </div>
     </div>
 
@@ -493,5 +528,33 @@
   <p>© 2026 <span>Vinksters Leagues</span> · All rights reserved</p>
 </footer>
 
+<script>
+  // ── Live open spots for NFL League I ──
+  // Fetches claim count from the NFL League Apps Script each page load.
+  // NFL League II is static at 32 until its site/sheet is set up.
+  const NFL1_GAS = 'https://script.google.com/macros/s/AKfycbwyH3OWsW_pqlVC3aMKUJusr3BeFYT4Cd3fP_gQL4lA_OzF9FhSadMtNM0P55qZ0OUikw/exec';
+
+  async function loadNFLOpenSpots() {
+    const el = document.getElementById('nfl1-open');
+    if (!el) return;
+    try {
+      const res  = await fetch(`${NFL1_GAS}?action=claims`);
+      const data = await res.json();
+      if (data.success && data.claims) {
+        const claimed = Object.keys(data.claims).length;
+        const open    = Math.max(0, 32 - claimed);
+        el.textContent = open;
+      } else {
+        el.textContent = 32; // fallback if unexpected response shape
+      }
+    } catch (e) {
+      // CORS or network issue — show static fallback
+      el.textContent = 32;
+      console.warn('Could not fetch NFL League I claims:', e);
+    }
+  }
+
+  loadNFLOpenSpots();
+</script>
 </body>
 </html>
