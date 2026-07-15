@@ -624,7 +624,7 @@
         </div>
         <hr class="card-divider" />
         <div class="card-actions">
-          <a href="https://vinkster15.github.io/2026-NFL-League/" class="btn-enter btn-nfl">
+          <a href="https://vinkster15.github.io/2026-NFL-League/" class="btn-enter btn-nfl" id="nfl1-claim-btn">
             Claim a Spot <span class="btn-arrow">→</span>
           </a>
           <button class="btn-rules" onclick="openRules('nfl1')">📋 Rules</button>
@@ -663,7 +663,7 @@
         </div>
         <hr class="card-divider" />
         <div class="card-actions">
-          <a href="#" class="btn-enter btn-nfl">
+          <a href="#" class="btn-enter btn-nfl" id="nfl2-claim-btn">
             Claim a Spot <span class="btn-arrow">→</span>
           </a>
           <button class="btn-rules" onclick="openRules('nfl2')">📋 Rules</button>
@@ -701,7 +701,7 @@
         </div>
         <hr class="card-divider" />
         <div class="card-actions">
-          <a href="https://vinkster15.github.io/2026-NFL-Guillotine-League/" class="btn-enter btn-nfl">
+          <a href="https://vinkster15.github.io/2026-NFL-Guillotine-League/" class="btn-enter btn-nfl" id="guill-claim-btn">
             Claim a Spot <span class="btn-arrow">→</span>
           </a>
           <button class="btn-rules" onclick="openRules('guillotine')">📋 Rules</button>
@@ -846,6 +846,24 @@
 
   loadNFLOpenSpots();
   loadGuillotineOpenSpots();
+
+  // ── Swap "Claim a Spot" → "View League" if user has already signed up ──
+  function updateClaimedButtons() {
+    const btnMap = {
+      'nfl1_2026_claimed':  { id: 'nfl1-claim-btn',  label: 'View League' },
+      'nfl2_2026_claimed':  { id: 'nfl2-claim-btn',  label: 'View League' },
+      'guill_2026_claimed': { id: 'guill-claim-btn', label: 'View League' }
+    };
+    for (const [key, cfg] of Object.entries(btnMap)) {
+      try {
+        if (localStorage.getItem(key)) {
+          const btn = document.getElementById(cfg.id);
+          if (btn) btn.innerHTML = `${cfg.label} <span class="btn-arrow">→</span>`;
+        }
+      } catch(e) {}
+    }
+  }
+  updateClaimedButtons();
 
   // ── Rules modal ──────────────────────────────────────────────
   const RULES = {
