@@ -627,7 +627,7 @@
           <a href="https://vinkster15.github.io/2026-NFL-League/" class="btn-enter btn-nfl" id="nfl1-claim-btn">
             Claim a Spot <span class="btn-arrow">→</span>
           </a>
-          <button class="btn-rules" onclick="openRules('nfl1')">📋 Rules</button>
+          <button class="btn-rules" onclick="openRules('nfl1')">📋 League Concept</button>
         </div>
       </div>
     </div>
@@ -666,7 +666,7 @@
           <a href="https://vinkster15.github.io/2026-NFL-League---II/" class="btn-enter btn-nfl" id="nfl2-claim-btn">
             Claim a Spot <span class="btn-arrow">→</span>
           </a>
-          <button class="btn-rules" onclick="openRules('nfl2')">📋 Rules</button>
+          <button class="btn-rules" onclick="openRules('nfl2')">📋 League Concept</button>
         </div>
       </div>
     </div>
@@ -704,7 +704,7 @@
           <a href="https://vinkster15.github.io/2026-NFL-Guillotine-League/" class="btn-enter btn-nfl" id="guill-claim-btn">
             Claim a Spot <span class="btn-arrow">→</span>
           </a>
-          <button class="btn-rules" onclick="openRules('guillotine')">📋 Rules</button>
+          <button class="btn-rules" onclick="openRules('guillotine')">📋 League Concept</button>
         </div>
       </div>
     </div>
@@ -787,7 +787,7 @@
     <div class="rules-header">
       <div>
         <div class="rules-league-name" id="rules-league-name">League</div>
-        <div class="rules-title" id="rules-title">Rules</div>
+        <div class="rules-title" id="rules-title">League Concept</div>
       </div>
       <button class="rules-close" onclick="closeRules()">✕</button>
     </div>
@@ -869,18 +869,42 @@
   const RULES = {
     nfl1: {
       league: '2026 DK NFL League - I',
-      title:  'League Rules',
-      body:   `<p>Rules coming soon — check back before the season kicks off.</p>`
+      title:  'League Concept',
+      body:   `
+        <p>A fantasy league built around the real NFL structure — 32 teams split across 2 conferences and 8 divisions, just like the actual league.</p>
+        <h3>How It Works</h3>
+        <p>Each manager claims one NFL team for the season. Every week, you draft a new lineup on <strong>DraftKings</strong> using that week's main slate <strong>(1PM &amp; 4PM games only)</strong> — your DK score becomes your team's score for the week.</p>
+        <h3>Schedule</h3>
+        <p><strong>18 weeks total.</strong> Head-to-head matchups run through <strong>Week 13</strong> (regular season), with some double-matchup weeks built in to fill the schedule.</p>
+        <h3>Playoffs</h3>
+        <p><strong>Weeks 14–17.</strong> All 8 division winners qualify automatically, plus the top <strong>3 wild cards</strong> from each conference — 14 teams total compete for the championship.</p>
+      `
     },
     nfl2: {
       league: '2026 DK NFL League - II',
-      title:  'League Rules',
-      body:   `<p>Rules coming soon — check back before the season kicks off.</p>`
+      title:  'League Concept',
+      body:   `
+        <p>A fantasy league built around the real NFL structure — 32 teams split across 2 conferences and 8 divisions, just like the actual league.</p>
+        <h3>How It Works</h3>
+        <p>Each manager claims one NFL team for the season. Every week, you draft a new lineup on <strong>DraftKings</strong> using that week's main slate <strong>(1PM &amp; 4PM games only)</strong> — your DK score becomes your team's score for the week.</p>
+        <h3>Schedule</h3>
+        <p><strong>18 weeks total.</strong> Head-to-head matchups run through <strong>Week 13</strong> (regular season), with some double-matchup weeks built in to fill the schedule.</p>
+        <h3>Playoffs</h3>
+        <p><strong>Weeks 14–17.</strong> All 8 division winners qualify automatically, plus the top <strong>3 wild cards</strong> from each conference — 14 teams total compete for the championship.</p>
+      `
     },
     guillotine: {
       league: '2026 NFL Guillotine League',
-      title:  'League Rules',
-      body:   `<p>Rules coming soon — check back before the season kicks off.</p>`
+      title:  'League Concept',
+      body:   `
+        <p>An 18-team survivor league. One team gets eliminated every week — don't be last and you're still alive. Simple as that.</p>
+        <h3>How It Works</h3>
+        <p>Teams are built through a <strong>snake draft</strong>. Each week is a <strong>total points</strong> competition — no head-to-head matchups, just your score vs. the field.</p>
+        <h3>The Guillotine</h3>
+        <p>The <strong>last place team each week is eliminated</strong> and their entire roster is dropped. Every remaining manager then <strong>bids on those freed players</strong> — so the prize pool gets redistributed back into the league each week.</p>
+        <h3>Payouts</h3>
+        <p>Final <strong>4 managers get paid</strong> — and it's heavily top-loaded. Survive longer, earn more.</p>
+      `
     }
   };
 
