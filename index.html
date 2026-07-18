@@ -709,6 +709,44 @@
       </div>
     </div>
 
+    <!-- ── Vinkster's Yahoo League ── -->
+    <div class="league-card card-nfl">
+      <div class="card-banner banner-nfl">
+        <span class="sport-icon">🏈</span>
+        <span class="card-badge badge-reg">Registration Open</span>
+      </div>
+      <div class="card-body">
+        <p class="card-sport">National Football League</p>
+        <h2 class="card-name">Vinkster's League</h2>
+        <p class="card-season">2026 Season · Yahoo Fantasy</p>
+        <div class="card-stats-grid">
+          <div class="stat-item">
+            <span class="stat-num">12</span>
+            <span class="stat-label">Teams</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">$200</span>
+            <span class="stat-label">Entry Fee</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">17</span>
+            <span class="stat-label">Weeks</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">Aug 30</span>
+            <span class="stat-label">Draft · 7PM ET</span>
+          </div>
+        </div>
+        <hr class="card-divider" />
+        <div class="card-actions">
+          <a href="https://football.fantasysports.yahoo.com/f1/195495/invitation?key=3fafeadf24557cdf&soc_trk=lnk&ikey=ca0fa73502c2bb35" target="_blank" class="btn-enter btn-nfl">
+            Join on Yahoo <span class="btn-arrow">→</span>
+          </a>
+          <button class="btn-rules" onclick="openRules('yahoo')">📋 League Concept</button>
+        </div>
+      </div>
+    </div>
+
     <!-- ── Golf League ── -->
     <div class="league-card card-golf">
       <div class="card-banner banner-golf">
@@ -893,6 +931,21 @@
         <p><strong>Weeks 14–17.</strong> All 8 division winners qualify automatically, plus the top <strong>3 wild cards</strong> from each conference — 14 teams total compete for the championship.</p>
       `
     },
+    yahoo: {
+      league: "Vinkster's League",
+      title:  'League Concept',
+      body:   `
+        <p>A classic 12-man PPR snake draft league on Yahoo Fantasy. Pick your team, manage your roster, compete all season.</p>
+        <h3>Roster</h3>
+        <p>1 QB · 2 RB · 2 WR · 1 TE · 1 FLEX · 1 K · 1 DEF</p>
+        <h3>Format</h3>
+        <p><strong>PPR scoring</strong> (1 point per reception). Standard head-to-head weekly matchups over a 17-week season.</p>
+        <h3>Draft</h3>
+        <p><strong>Snake draft — August 30 at 7PM ET</strong> on Yahoo Fantasy. Sign up via the invite link and you'll be set when draft day arrives.</p>
+        <h3>Entry</h3>
+        <p><strong>$200 buy-in.</strong> Payment details will be provided after you join.</p>
+      `
+    },
     guillotine: {
       league: '2026 NFL Guillotine League',
       title:  'League Concept',
@@ -901,9 +954,9 @@
         <h3>How It Works</h3>
         <p>Teams are built through a <strong>snake draft</strong>. Each week is a <strong>total points</strong> competition — no head-to-head matchups, just your score vs. the field.</p>
         <h3>The Guillotine</h3>
-        <p>The <strong>last place team each week is eliminated</strong> and their entire roster is dropped. Every remaining manager then <strong>bids on those freed players</strong> — so the prize pool gets redistributed back into the league each week.</p>
+        <p>The <strong>last place team each week is eliminated</strong> and their entire roster is dropped. Every remaining manager then <strong>bids on those freed players.</strong></p>
         <h3>Payouts</h3>
-        <p>Final <strong>4 managers get paid</strong> — and it's heavily top-loaded. Survive longer, earn more.</p>
+        <p>Final <strong>4 managers get paid</strong> — and it's heavily top-loaded.</p>
       `
     }
   };
