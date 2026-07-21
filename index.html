@@ -648,9 +648,8 @@
             <span class="stat-num">32</span>
             <span class="stat-label">Teams</span>
           </div>
-          <!-- UPDATE: decrease open spots as teams are claimed -->
           <div class="stat-item">
-            <span class="stat-num">32</span>
+            <span class="stat-num" id="nfl2-open">—</span>
             <span class="stat-label">Open Spots</span>
           </div>
           <div class="stat-item">
@@ -846,7 +845,8 @@
 </footer>
 
 <script>
-  const NFL1_GAS  = 'https://script.google.com/macros/s/AKfycbwyH3OWsW_pqlVC3aMKUJusr3BeFYT4Cd3fP_gQL4lA_OzF9FhSadMtNM0P55qZ0OUikw/exec';
+  const NFL1_GAS  = 'https://script.google.com/macros/s/AKfycbzoqxulglJqFpqwdLzKDBs0XtbvcXCyqqTVmT0memzlb4a7xA3Jesi6CepJYwXtvK9WlQ/exec';
+  const NFL2_GAS  = 'https://script.google.com/macros/s/AKfycbzV3tQ-IPYW3ljDjEMIBdF3uLhnJhyyVOMhf23vOVqvv4M1bHBiMf8uWQFw1-U5nCl_7A/exec';
   const GUILL_GAS = 'https://script.google.com/macros/s/AKfycbyKtYR8enNHTXAcVd3xZA6768rzRZ2yq7k_HzOVyMf4UX24YjYnviUEhxN8lLEf4Y0/exec';
 
   async function loadNFLOpenSpots() {
@@ -865,6 +865,26 @@
     } catch (e) {
       el.textContent = 32;
       console.warn('Could not fetch NFL League I claims:', e);
+    }
+  }
+
+
+  async function loadNFL2OpenSpots() {
+    const el = document.getElementById('nfl2-open');
+    if (!el) return;
+    try {
+      const res  = await fetch(`${NFL2_GAS}?action=claims`);
+      const data = await res.json();
+      if (data.success && data.claims) {
+        const claimed = Object.keys(data.claims).length;
+        const open    = Math.max(0, 32 - claimed);
+        el.textContent = open;
+      } else {
+        el.textContent = 32;
+      }
+    } catch (e) {
+      el.textContent = 32;
+      console.warn('Could not fetch NFL League II claims:', e);
     }
   }
 
@@ -891,6 +911,7 @@
   }
 
   loadNFLOpenSpots();
+  loadNFL2OpenSpots();
   loadGuillotineOpenSpots();
 
   // ── Swap "Claim a Spot" → "View League" if user has already signed up ──
