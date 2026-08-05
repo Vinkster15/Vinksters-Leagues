@@ -599,7 +599,7 @@
     <div class="league-card card-nfl">
       <div class="card-banner banner-nfl">
         <span class="sport-icon">🏈</span>
-        <span class="card-badge badge-reg">Registration Open</span>
+        <span class="card-badge badge-reg" id="nfl1-badge">Registration Open</span>
       </div>
       <div class="card-body">
         <p class="card-sport">National Football League</p>
@@ -637,7 +637,7 @@
     <div class="league-card card-nfl">
       <div class="card-banner banner-nfl">
         <span class="sport-icon">🏈</span>
-        <span class="card-badge badge-reg">Registration Open</span>
+        <span class="card-badge badge-reg" id="nfl2-badge">Registration Open</span>
       </div>
       <div class="card-body">
         <p class="card-sport">National Football League</p>
@@ -675,7 +675,7 @@
     <div class="league-card card-nfl">
       <div class="card-banner banner-nfl">
         <span class="sport-icon">⚔️</span>
-        <span class="card-badge badge-reg">Registration Open</span>
+        <span class="card-badge" style="background:#555;color:#bbb;font-size:10px;font-weight:800;letter-spacing:.1em;padding:5px 12px;border-radius:20px;">League Full</span>
       </div>
       <div class="card-body">
         <p class="card-sport">National Football League</p>
@@ -849,8 +849,14 @@
   const NFL2_GAS  = 'https://script.google.com/macros/s/AKfycbzV3tQ-IPYW3ljDjEMIBdF3uLhnJhyyVOMhf23vOVqvv4M1bHBiMf8uWQFw1-U5nCl_7A/exec';
   const GUILL_GAS = 'https://script.google.com/macros/s/AKfycbyKtYR8enNHTXAcVd3xZA6768rzRZ2yq7k_HzOVyMf4UX24YjYnviUEhxN8lLEf4Y0/exec';
 
+  function setLeagueFullBadge(badgeEl) {
+    badgeEl.textContent = 'League Full';
+    badgeEl.style.cssText = 'background:#555;color:#bbb;font-size:10px;font-weight:800;letter-spacing:.1em;padding:5px 12px;border-radius:20px;';
+  }
+
   async function loadNFLOpenSpots() {
-    const el = document.getElementById('nfl1-open');
+    const el    = document.getElementById('nfl1-open');
+    const badge = document.getElementById('nfl1-badge');
     if (!el) return;
     try {
       const res  = await fetch(`${NFL1_GAS}?action=claims`);
@@ -859,6 +865,7 @@
         const claimed = Object.keys(data.claims).length;
         const open    = Math.max(0, 32 - claimed);
         el.textContent = open;
+        if (open === 0 && badge) setLeagueFullBadge(badge);
       } else {
         el.textContent = 32;
       }
@@ -868,9 +875,9 @@
     }
   }
 
-
   async function loadNFL2OpenSpots() {
-    const el = document.getElementById('nfl2-open');
+    const el    = document.getElementById('nfl2-open');
+    const badge = document.getElementById('nfl2-badge');
     if (!el) return;
     try {
       const res  = await fetch(`${NFL2_GAS}?action=claims`);
@@ -879,6 +886,7 @@
         const claimed = Object.keys(data.claims).length;
         const open    = Math.max(0, 32 - claimed);
         el.textContent = open;
+        if (open === 0 && badge) setLeagueFullBadge(badge);
       } else {
         el.textContent = 32;
       }
